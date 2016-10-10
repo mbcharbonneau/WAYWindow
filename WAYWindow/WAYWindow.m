@@ -151,20 +151,20 @@ static float kWAYWindowDefaultTrafficLightButtonsTopMargin = 0;
 
 + (float) defaultTitleBarHeight {
 	NSRect frame = NSMakeRect(0, 0, 800, 600);
-	NSRect contentRect = [NSWindow contentRectForFrameRect:frame styleMask: NSTitledWindowMask];
+	NSRect contentRect = [NSWindow contentRectForFrameRect:frame styleMask: NSWindowStyleMaskTitled];
 	return NSHeight(frame) - NSHeight(contentRect);
 }
 
 #pragma mark - NSWindow Overwritings
 
-- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
+- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSWindowStyleMask)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
 	if ((self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag])) {
 		[self _setUp];
 	}
 	return self;
 }
 
-- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag screen:(NSScreen *)screen {
+- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSWindowStyleMask)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag screen:(NSScreen *)screen {
 	if ((self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag screen:screen])) {
 		[self _setUp];
 	}
@@ -266,7 +266,7 @@ static float kWAYWindowDefaultTrafficLightButtonsTopMargin = 0;
 }
 
 - (BOOL) isFullScreen {
-	return (([self styleMask] & NSFullScreenWindowMask) == NSFullScreenWindowMask);
+	return (([self styleMask] & NSWindowStyleMaskFullSizeContentView) == NSWindowStyleMaskFullSizeContentView);
 }
 
 - (void) replaceSubview: (NSView *) aView withView: (NSView *) newView resizing:(BOOL)flag {
@@ -318,7 +318,7 @@ static float kWAYWindowDefaultTrafficLightButtonsTopMargin = 0;
 	kWAYWindowDefaultTrafficLightButtonsLeftMargin = NSMinX(closeButton.frame);
 	kWAYWindowDefaultTrafficLightButtonsTopMargin = NSHeight(closeButton.superview.frame)-NSMaxY(closeButton.frame);
 	
-	self.styleMask |= NSFullSizeContentViewWindowMask;
+	self.styleMask |= NSWindowStyleMaskFullSizeContentView;
 	_trafficLightButtonsLeftMargin = kWAYWindowDefaultTrafficLightButtonsLeftMargin;
 	_trafficLightButtonsTopMargin = kWAYWindowDefaultTrafficLightButtonsTopMargin;
 	
